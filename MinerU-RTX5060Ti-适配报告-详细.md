@@ -125,3 +125,5 @@ python -c "import torch; print(torch.cuda.is_available(), torch.cuda.get_device_
 - 研究过程全程**只读**：未改动 `D:\MinerU-master` 下任何文件。
 
 > 全型号/全版本配置组合：[[MinerU-版本-显卡-CUDA-配置矩阵]]
+
+> GitHub 仓库：https://github.com/2131614483/MinerU-RTX5060Ti

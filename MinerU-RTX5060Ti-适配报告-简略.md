@@ -37,3 +37,5 @@ pip install torch==2.7.1+cu128 torchvision==0.22.1+cu128 torchaudio==2.7.1+cu128
 ## 踩坑提醒
 
 RTX 50 系（Blackwell）一律要 **cu128 的 torch**；让 pip 默认解析（cu126/cu124）就是失败的根源，报错表现是 CUDA 用不上（`is_available()=False` 或 `no kernel image`）。
+
+> GitHub 仓库：https://github.com/2131614483/MinerU-RTX5060Ti
