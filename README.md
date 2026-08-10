@@ -1,20 +1,22 @@
 # MinerU-RTX5060Ti
 
-MinerU 适配 RTX 5060 Ti（及全部显卡×CUDA）配置研究。
+MinerU 文档解析在 **RTX 5060 Ti / RTX 50 系（Blackwell）** 上的适配研究，含全系列显卡 × CUDA 配置组合总表。
 
-## 核心结论
+## 项目背景
 
-RTX 50 系（Blackwell，sm_120）跑 MinerU 成功的关键：**显式安装 PyTorch 的 cu128（CUDA 12.8）构建**（`torch>=2.7.0+cu128`）。官方 git 安装会让 pip 解析到默认 cu126 构建，不含 Blackwell 内核，因此 GPU 用不起来。
+RTX 5060 Ti 是 Blackwell 架构（sm_120，compute capability 12.0）。按官方 git 方式安装 MinerU 时，pip 会解析到默认的 cu126（CUDA 12.6）PyTorch 构建——而 **sm_120 只有 CUDA ≥ 12.8 才带内核**，导致 GPU 用不起来（`is_available()=False` 或 `no kernel image`）。
 
-MinerU 本身（2.x–3.x）从不锁定 CUDA 构建，只声明 `torch>=2.6.0,<3`——CUDA 版本完全由你装的 torch 决定。
+**成功的关键：显式安装 PyTorch 的 cu128 构建**（`torch>=2.7.0+cu128`）。
 
-## 文档
+MinerU 本身（2.x–3.x）从不锁定 CUDA 构建，只声明 `torch>=2.6.0,<3`——CUDA 版本完全由你实际装的 torch 决定（官方 changelog："cuda版本由torch决定"）。
+
+## 交付物
 
 | 文档 | 内容 |
 |---|---|
 | [适配报告-详细](MinerU-RTX5060Ti-适配报告-详细.md) | RTX 5060 Ti 适配完整研究：证据链、官方失败原因、本机实测、复现方法 |
 | [适配报告-简略](MinerU-RTX5060Ti-适配报告-简略.md) | 一句话结论 + 复现命令的快速参考卡 |
-| [版本-显卡-CUDA-配置矩阵](MinerU-版本-显卡-CUDA-配置矩阵.md) | MinerU 各版本 × 全系列显卡 × CUDA 配置组合总表（2026-08 实测自 PyPI 与 PyTorch 官方索引） |
+| [版本-显卡-CUDA-配置矩阵](MinerU-版本-显卡-CUDA-配置矩阵.md) | MinerU 各版本 × 全系列显卡 × CUDA 配置组合总表（实测自 PyPI 与 PyTorch 官方索引） |
 
 ## 关键复现命令
 
@@ -30,4 +32,4 @@ python -c "import torch; print(torch.cuda.is_available(), torch.cuda.get_device_
 
 ## 同步约定
 
-本仓库与 Obsidian 笔记 `研究/MinerU-RTX5060Ti/` 一一对应，报告同步自该目录。
+本项目与 Obsidian 笔记 `研究/MinerU-RTX5060Ti/` 一一对应：**仓库名 = Obsidian 文件夹名**，报告同步自该目录。
